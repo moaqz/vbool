@@ -5,6 +5,7 @@ import { useQuestions, QuestionAnswer } from '../composables/useQuestions';
 import Question from '../components/Question.vue';
 import QuizHeader from '../components/QuizHeader.vue';
 import QuizResult from '../components/QuizResult.vue';
+import Spinner from '../components/Spinner.vue';
 import { API_BASE_URL } from '../lib/constants';
 
 const {
@@ -18,9 +19,10 @@ const {
 } = useQuestions();
 
 const router = useRoute();
-const loading = ref(true);
+const status = ref<'loading' | 'error' | 'success'>('loading');
 
 async function getQuizQuestions() {
+  // TODO: we might like to validate the query params.
   const queryParams = router.query;
   const url = `${API_BASE_URL}?amount=${queryParams.amount}&category=${queryParams.category}&type=boolean`;
 
@@ -28,11 +30,10 @@ async function getQuizQuestions() {
     const response = await fetch(url);
     const data = await response.json();
     setQuestions(data.results);
+
+    status.value = 'success';
   } catch (error) {
-    // TODO:
-    console.error('Error fetching questions', error);
-  } finally {
-    loading.value = false;
+    status.value = 'error';
   }
 }
 
@@ -40,29 +41,51 @@ onMounted(() => getQuizQuestions());
 </script>
 
 <template>
-  <div class="grid grid-rows-[auto_1fr] items-center h-screen">
-    <p v-if="loading" class="text-center font-medium text-lg">Loading...</p>
+  <div
+    v-if="status == 'loading'"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+  >
+    <Spinner class="text-center font-medium text-lg" />
+  </div>
 
-    <template v-else-if="!loading && questions && questions.length > 0">
-      <QuizHeader @restart-quiz="() => resetQuiz()" />
+  <div
+    v-else-if="status == 'success'"
+    class="grid grid-rows-[auto_1fr] items-center h-screen"
+  >
+    <QuizHeader @restart-quiz="() => resetQuiz()" />
 
-      <Question
-        :category="currentQuestion.category"
-        :correct_answer="currentQuestion.correct_answer"
-        :difficulty="currentQuestion.difficulty"
-        :incorrect_answers="currentQuestion.incorrect_answers"
-        :type="currentQuestion.type"
-        :selected_answer="currentQuestion.selected_answer"
-        :question="currentQuestion.question"
-        @select-question="(answer: QuestionAnswer) => selectAnswer(answer)"
-        v-if="!quizCompleted"
-      />
+    <Question
+      :category="currentQuestion.category"
+      :correct_answer="currentQuestion.correct_answer"
+      :difficulty="currentQuestion.difficulty"
+      :incorrect_answers="currentQuestion.incorrect_answers"
+      :type="currentQuestion.type"
+      :selected_answer="currentQuestion.selected_answer"
+      :question="currentQuestion.question"
+      @select-question="(answer: QuestionAnswer) => selectAnswer(answer)"
+      v-if="!quizCompleted"
+    />
 
-      <QuizResult
-        :correctAnswers="correctCount"
-        :total-questions="questions.length"
-        v-else
-      />
-    </template>
+    <QuizResult
+      :correctAnswers="correctCount"
+      :total-questions="questions.length"
+      v-else
+    />
+  </div>
+
+  <div
+    class="h-screen flex flex-col items-center justify-center gap-4 px-2 max-w-xl mx-auto"
+    v-else
+  >
+    <h1 class="text-4xl font-medium text-gray-200 text-balance text-center">
+      Ooops! Something went wrong. Please try again later
+    </h1>
+
+    <RouterLink
+      to="/"
+      class="px-4 py-2 inline-flex items-center justify-center gap-2 bg-white font-semibold text-black rounded-md transition-all hover:bg-white/90"
+    >
+      Back to menu
+    </RouterLink>
   </div>
 </template>
