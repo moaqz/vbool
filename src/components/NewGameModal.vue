@@ -22,36 +22,39 @@ function handleSubmit() {
 </script>
 
 <template>
-  <Button type="button" @click="dialogRef?.showModal()">Play</Button>
+  <Button wfull type="button" @click="dialogRef?.showModal()">Play</Button>
 
   <dialog
     ref="dialogRef"
-    class="w-full max-w-md backdrop:bg-black/40 bg-slate-800 text-slate-50 px-4 py-5 rounded-md"
+    class="w-full max-w-md backdrop:bg-black/30 bg-dark text-white px-4 py-5 rounded-md"
   >
     <form class="space-y-4" @submit.prevent="handleSubmit">
       <div class="flex gap-3">
-        <label class="flex-1 text-lg font-semibold">
+        <label class="flex-1 font-semibold text-lg text-gray-200">
           Questions
           <input
             type="range"
             max="10"
             min="4"
             v-model="amount"
-            class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-slate-700"
+            class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-accent bg-gray-200/10"
           />
         </label>
-        <span class="self-end font-semibold text-lg">{{ amount }}</span>
+        <span class="self-end font-semibold text-lg text-gray-400">{{
+          amount
+        }}</span>
       </div>
 
       <fieldset>
-        <legend class="text-lg font-semibold mb-2">Categories</legend>
+        <legend class="font-semibold text-lg mb-2 text-gray-200">
+          Categories
+        </legend>
 
         <div class="grid grid-cols-2 gap-2">
           <CategoryItem
             v-for="item in QUIZ_CATEGORIES"
             :id="item.id"
             :key="item.id"
-            :icon="item.icon"
             :name="item.name"
             v-model="category"
           />

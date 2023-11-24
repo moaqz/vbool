@@ -3,7 +3,6 @@ import { computed } from 'vue';
 
 const props = defineProps<{
   name: string;
-  icon: string;
   id: string;
   modelValue: string;
 }>();
@@ -15,8 +14,8 @@ const isActive = computed(() => props.modelValue === props.id);
   <label
     class="transition-colors p-3 rounded-md group flex items-center gap-4"
     :class="{
-      'bg-blue-500': isActive,
-      'hover:bg-slate-700': !isActive,
+      'bg-gray-200/10 text-accent': isActive,
+      'hover:bg-gray-200/10 text-gray-400': !isActive,
     }"
   >
     <input
@@ -26,7 +25,6 @@ const isActive = computed(() => props.modelValue === props.id);
       :checked="id === modelValue"
       :value="id"
     />
-    <img :src="icon" :alt="name" width="32" height="32" />
     <p class="text-lg font-semibold">{{ name }}</p>
   </label>
 </template>

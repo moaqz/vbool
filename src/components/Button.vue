@@ -12,7 +12,7 @@ withDefaults(defineProps<ButtonProps>(), {
 
 <template>
   <button
-    class="px-4 py-2 bg-green-700 font-semibold rounded-md transition-colors hover:bg-green-800"
+    class="px-4 py-2 bg-white font-semibold text-black rounded-md transition-all hover:bg-white/90"
     :class="{ 'w-full': wfull }"
     :type="type"
   >
