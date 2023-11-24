@@ -4,13 +4,14 @@ import { useRoute } from 'vue-router';
 import { useQuestions, QuestionAnswer } from '../composables/useQuestions';
 import Question from '../components/Question.vue';
 import QuizHeader from '../components/QuizHeader.vue';
+import QuizResult from '../components/QuizResult.vue';
 import { API_BASE_URL } from '../lib/constants';
 
 const {
   currentQuestion,
   questions,
   quizCompleted,
-  score,
+  correctCount,
   setQuestions,
   selectAnswer,
   resetQuiz,
@@ -56,9 +57,12 @@ onMounted(() => getQuizQuestions());
         @select-question="(answer: QuestionAnswer) => selectAnswer(answer)"
         v-if="!quizCompleted"
       />
-      <p v-else class="text-center font-medium text-lg">
-        Quiz Completed! {{ score }}
-      </p>
+
+      <QuizResult
+        :correctAnswers="correctCount"
+        :total-questions="questions.length"
+        v-else
+      />
     </template>
   </div>
 </template>

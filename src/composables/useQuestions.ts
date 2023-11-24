@@ -25,10 +25,6 @@ export function useQuestions() {
     return questions.value[currentIndex.value];
   });
 
-  const score = computed(() => {
-    return correctCount.value * 100;
-  });
-
   function setQuestions(data: Question[]) {
     questions.value = data.map((question) => ({
       ...question,
@@ -74,7 +70,7 @@ export function useQuestions() {
     questions,
     currentQuestion,
     quizCompleted,
-    score,
+    correctCount,
     setQuestions,
     getNextQuestion,
     selectAnswer,

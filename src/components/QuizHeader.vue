@@ -1,28 +1,22 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import ArrowLeftIcon from '../icons/ArrowLeftIcon.vue';
 import RestartIcon from '../icons/RestartIcon.vue';
+import Button from './Button.vue';
 
 const emit = defineEmits(['restart-quiz']);
 </script>
 
 <template>
-  <header class="py-3 px-4 flex items-center gap-2">
-    <RouterLink
-      to="/"
-      title="Go Back"
-      class="inline-block p-1 rounded-md bg-green-700 transition-colors hover:bg-green-800"
-    >
-      <ArrowLeftIcon />
+  <header class="py-3 px-4 flex justify-between items-center">
+    <RouterLink to="/">
+      <h1 class="text-3xl font-semibold">VBool</h1>
     </RouterLink>
 
-    <button
-      class="inline-block p-1 rounded-md bg-green-700 transition-colors hover:bg-green-800 rotate-180"
-      aria-label="Restart Quiz"
-      title="Restart Quiz"
+    <Button
+      class="inline-block p-1 rounded-md bg-green-700 transition-colors hover:bg-green-800"
       @click="emit('restart-quiz')"
     >
-      <RestartIcon />
-    </button>
+      <RestartIcon /> Restart Game
+    </Button>
   </header>
 </template>
