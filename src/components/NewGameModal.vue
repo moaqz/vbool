@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { QUIZ_CATEGORIES } from '../lib/constants';
-import { router } from '../lib/router';
 import Button from './Button.vue';
 import CategoryItem from './CategoryItem.vue';
 
+const router = useRouter();
 const dialogRef = ref<HTMLDialogElement>();
 const amount = ref('4');
 const category = ref<string>(QUIZ_CATEGORIES[0].id);
 
 function handleSubmit() {
-  const URL = `/play?amount=${amount.value}&category=${category.value}`;
-  router.push(URL);
+  router.push({
+    name: 'play',
+    query: {
+      amount: amount.value,
+      category: category.value,
+    },
+  });
 }
 </script>
 
