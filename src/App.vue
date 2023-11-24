@@ -1,3 +1,5 @@
 <template>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <div class="p-2">
+    <router-view />
+  </div>
 </template>
