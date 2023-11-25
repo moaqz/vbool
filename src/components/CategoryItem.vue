@@ -3,11 +3,10 @@ import { computed } from 'vue';
 
 const props = defineProps<{
   name: string;
-  id: string;
   modelValue: string;
 }>();
 
-const isActive = computed(() => props.modelValue === props.id);
+const isActive = computed(() => props.modelValue === props.name);
 </script>
 
 <template>
@@ -21,9 +20,9 @@ const isActive = computed(() => props.modelValue === props.id);
     <input
       type="radio"
       class="hidden"
-      @change="$emit('update:modelValue', id)"
-      :checked="id === modelValue"
-      :value="id"
+      @change="$emit('update:modelValue', name)"
+      :checked="name === modelValue"
+      :value="name"
     />
     <p class="text-lg font-semibold">{{ name }}</p>
   </label>

@@ -6,7 +6,7 @@ import Question from '../components/Question.vue';
 import QuizHeader from '../components/QuizHeader.vue';
 import QuizResult from '../components/QuizResult.vue';
 import Spinner from '../components/Spinner.vue';
-import { API_BASE_URL } from '../lib/constants';
+import { API_BASE_URL, QUIZ_CATEGORIES, QUIZ_AMOUNT } from '../lib/constants';
 
 const {
   currentQuestion,
@@ -22,9 +22,19 @@ const router = useRoute();
 const status = ref<'loading' | 'error' | 'success'>('loading');
 
 async function getQuizQuestions() {
-  // TODO: we might like to validate the query params.
-  const queryParams = router.query;
-  const url = `${API_BASE_URL}?amount=${queryParams.amount}&category=${queryParams.category}&type=boolean`;
+  const category = Array.isArray(router.query.category)
+    ? router.query.category[0]
+    : router.query.category;
+
+  let categoryId: number;
+
+  if (!category || !QUIZ_CATEGORIES.some((c) => c.name === category)) {
+    categoryId = QUIZ_CATEGORIES[0].id;
+  } else {
+    categoryId = QUIZ_CATEGORIES.find((c) => c.name == category)!.id;
+  }
+
+  const url = `${API_BASE_URL}?amount=${QUIZ_AMOUNT}&category=${categoryId}&type=boolean`;
 
   try {
     const response = await fetch(url);
@@ -63,7 +73,7 @@ onMounted(() => getQuizQuestions());
       :selected_answer="currentQuestion.selected_answer"
       :question="currentQuestion.question"
       @select-question="(answer: QuestionAnswer) => selectAnswer(answer)"
-      v-if="!quizCompleted"
+      v-if="currentQuestion && !quizCompleted"
     />
 
     <QuizResult
