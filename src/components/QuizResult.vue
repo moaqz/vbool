@@ -15,6 +15,7 @@ const incorrectAnswers = computed(() => {
 <template>
   <div
     class="flex flex-col gap-5 w-full max-w-md mx-auto bg-dark shadow-md border border-gray-800 rounded-md px-4 py-6"
+    data-cy="quiz-result"
   >
     <h2 class="text-3xl font-medium text-gray-200 text-center">
       Quiz Finished!

@@ -1,0 +1,29 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "type": "boolean",
+      "difficulty": "hard",
+      "category": "Entertainment: Film",
+      "question": "Test 1",
+      "correct_answer": "False",
+      "incorrect_answers": ["True"]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "Test 2",
+      "correct_answer": "True",
+      "incorrect_answers": ["True"]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "Test 3",
+      "correct_answer": "False",
+      "incorrect_answers": ["True"]
+    }
+  ]
+}

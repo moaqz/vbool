@@ -15,6 +15,7 @@ const isButtonDisabled = computed(() => {
     <p
       v-html="question"
       class="text-xl text-center font-semibold p-6 shadow-md bg-dark border rounded-md border-gray-800"
+      data-cy="quiz-question"
     />
 
     <ul class="grid gap-4 sm:grid-cols-2">
@@ -28,6 +29,7 @@ const isButtonDisabled = computed(() => {
           class="w-full p-4"
           @click="emit('select-question', QuestionAnswer.Yes)"
           :disabled="isButtonDisabled"
+          data-cy="true-button"
         >
           {{ QuestionAnswer.Yes }}
         </button>
@@ -42,6 +44,7 @@ const isButtonDisabled = computed(() => {
           class="w-full p-4"
           @click="emit('select-question', QuestionAnswer.No)"
           :disabled="isButtonDisabled"
+          data-cy="false-button"
         >
           {{ QuestionAnswer.No }}
         </button>

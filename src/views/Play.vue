@@ -87,12 +87,16 @@ onMounted(() => getQuizQuestions());
     class="h-screen flex flex-col items-center justify-center gap-4 px-2 max-w-xl mx-auto"
     v-else
   >
-    <h1 class="text-4xl font-medium text-gray-200 text-balance text-center">
+    <h1
+      data-cy="error-message"
+      class="text-4xl font-medium text-gray-200 text-balance text-center"
+    >
       Ooops! Something went wrong. Please try again later
     </h1>
 
     <RouterLink
       to="/"
+      data-cy="back-to-menu-link"
       class="px-4 py-2 inline-flex items-center justify-center gap-2 bg-white font-semibold text-black rounded-md transition-all hover:bg-white/90"
     >
       Back to menu

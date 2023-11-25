@@ -15,6 +15,7 @@ const emit = defineEmits(['restart-quiz']);
     <Button
       class="inline-block p-1 rounded-md bg-green-700 transition-colors hover:bg-green-800"
       @click="emit('restart-quiz')"
+      data-cy="restart-button"
     >
       <RestartIcon /> Restart Game
     </Button>
