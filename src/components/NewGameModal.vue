@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { QUIZ_CATEGORIES } from '../lib/constants';
 import Button from './Button.vue';
 import CategoryItem from './CategoryItem.vue';
+import CloseIcon from '../icons/CloseIcon.vue';
 
 const router = useRouter();
 const dialogRef = ref<HTMLDialogElement>();
@@ -24,7 +25,7 @@ function handleSubmit() {
 
   <dialog
     ref="dialogRef"
-    class="w-full max-w-md backdrop:bg-black/30 bg-dark text-white px-4 py-5 rounded-md"
+    class="relative w-full max-w-md backdrop:bg-black/30 bg-dark text-white px-4 py-5 rounded-md border border-gray-800"
   >
     <form class="space-y-4" @submit.prevent="handleSubmit">
       <fieldset>
@@ -41,6 +42,16 @@ function handleSubmit() {
           />
         </div>
       </fieldset>
+
+      <button
+        type="button"
+        class="absolute top-1 right-4"
+        aria-label="Close dialog"
+        title="Close"
+        @click="dialogRef?.close()"
+      >
+        <CloseIcon />
+      </button>
 
       <Button type="submit" wfull>New Game</Button>
     </form>
