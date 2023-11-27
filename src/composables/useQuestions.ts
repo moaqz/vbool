@@ -1,4 +1,5 @@
 import { computed, ref } from 'vue';
+import { playSound } from '../lib/sound';
 
 export enum QuestionAnswer {
   Yes = 'True',
@@ -49,6 +50,9 @@ export function useQuestions() {
 
     if (correctAnswer === selectedAnswer) {
       correctCount.value++;
+      playSound('correct_answer');
+    } else {
+      playSound('wrong_answer');
     }
 
     setTimeout(() => {

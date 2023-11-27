@@ -39,9 +39,14 @@ async function getQuizQuestions() {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    setQuestions(data.results);
 
-    status.value = 'success';
+    if (Array.isArray(data.results) && data.results.length > 0) {
+      setQuestions(data.results);
+      status.value = 'success';
+      return;
+    }
+
+    status.value = 'error';
   } catch (error) {
     status.value = 'error';
   }

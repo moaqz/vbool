@@ -14,7 +14,7 @@ const isButtonDisabled = computed(() => {
   <div class="flex flex-col w-full gap-3 max-w-2xl mx-auto px-2">
     <p
       v-html="question"
-      class="text-xl text-center font-semibold p-6 shadow-md bg-dark border rounded-md border-gray-800"
+      class="text-xl text-center font-semibold p-6 shadow-md bg-dark border rounded-md border-gray-800 break-words"
       data-cy="quiz-question"
     />
 
@@ -22,7 +22,12 @@ const isButtonDisabled = computed(() => {
       <li
         class="rounded-md text-lg font-medium shadow-md bg-dark border border-gray-800 text-center"
         :class="{
-          '!bg-green-600': selected_answer === QuestionAnswer.Yes,
+          '!bg-green-600 animate-rotation':
+            selected_answer === QuestionAnswer.Yes &&
+            selected_answer === correct_answer,
+          '!bg-red-600 animate-vibrate':
+            selected_answer === QuestionAnswer.Yes &&
+            selected_answer !== correct_answer,
         }"
       >
         <button
@@ -37,7 +42,12 @@ const isButtonDisabled = computed(() => {
       <li
         class="rounded-md text-lg font-medium shadow-md bg-dark border border-gray-800 text-center"
         :class="{
-          '!bg-red-600': selected_answer === QuestionAnswer.No,
+          '!bg-green-600 animate-rotation':
+            selected_answer === QuestionAnswer.No &&
+            selected_answer === correct_answer,
+          '!bg-red-600 animate-vibrate':
+            selected_answer === QuestionAnswer.No &&
+            selected_answer !== correct_answer,
         }"
       >
         <button
